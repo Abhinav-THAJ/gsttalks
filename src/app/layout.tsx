@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import LeadCapture from "@/components/LeadCapture";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,7 +28,9 @@ export default function RootLayout({
           </main>
           <Footer />
         </SmoothScrolling>
+        <LeadCapture />
       </body>
     </html>
   );
 }
+

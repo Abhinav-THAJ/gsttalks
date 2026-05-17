@@ -13,15 +13,15 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         brand: {
-          blue: "#0A2540",
-          "blue-light": "#1a3f68",
-          "blue-dark": "#051626",
-          "blue-subtle": "#f0f4f8",
-          gold: "#C5A880",
-          "gold-light": "#e5d0b1",
-          "gold-dark": "#a38a6a",
-          "gold-subtle": "#fef9f2",
-          light: "#F7F9FC",
+          blue: "#030712", // Very dark grey/black
+          "blue-light": "#1f2937",
+          "blue-dark": "#000000",
+          "blue-subtle": "#f3f4f6",
+          gold: "#f59e0b", // Amber
+          "gold-light": "#fcd34d",
+          "gold-dark": "#b45309",
+          "gold-subtle": "#fffbeb",
+          light: "#ffffff",
         },
         card: {
           DEFAULT: "hsl(var(--card))",

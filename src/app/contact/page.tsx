@@ -1,8 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, MessageSquare, Clock, Send, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, MessageSquare, Clock, Send, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 import { useState } from "react";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay: i * 0.1, ease: [0.25, 0.4, 0.25, 1] },
+  }),
+};
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
@@ -14,155 +23,158 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-brand-light min-h-screen pt-32 pb-24 relative overflow-hidden">
-      {/* Background Accents */}
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-brand-blue/5 blur-[120px] rounded-full"></div>
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-brand-gold/10 blur-[120px] rounded-full"></div>
-
+    <div className="bg-white min-h-screen pt-40 pb-24 relative overflow-hidden text-slate-900">
+      <div className="absolute inset-0 bg-mesh"></div>
+      <div className="absolute top-0 right-0 w-72 h-72 bg-amber-400/10 blur-3xl rounded-full animate-float"></div>
+      
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">Let's Discuss Your <span className="text-gradient">Growth</span></h1>
-          <p className="text-lg text-slate-600">
+        <div className="text-center max-w-4xl mx-auto mb-20">
+
+          <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={1} className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6 leading-[1.05]">
+            Let's Discuss Your{" "}
+            <span className="font-display italic text-gradient-gold">Growth</span>
+          </motion.h1>
+          <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2} className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">
             Book a premium consultation with our senior partners or request an instant callback. We are here to resolve your compliance challenges.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-12 items-start">
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
           
           {/* Contact Info Cards */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="glass-card p-8 rounded-3xl relative overflow-hidden group">
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue mb-6">
-                <MessageSquare className="w-6 h-6" />
+            {/* WhatsApp CTA — Most prominent */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="rounded-[2.5rem] bg-slate-900 text-white p-10 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-bl-full"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-green-500/10 blur-2xl rounded-full"></div>
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-[#25D366]/20 flex items-center justify-center mb-6">
+                  <MessageSquare className="w-6 h-6 text-[#25D366]" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 tracking-tight">WhatsApp Consultation</h3>
+                <p className="text-slate-400 mb-8 text-sm">Fastest way to reach our support team directly.</p>
+                <a href="https://wa.me/919847148622?text=Hi%2C%20I%20need%20help%20with%20GST%2FTax%20compliance." target="_blank" className="block w-full py-4 bg-[#25D366] text-white rounded-full font-bold text-center uppercase tracking-[0.15em] text-xs hover:bg-[#20bd5a] transition-colors">
+                  Chat Now on WhatsApp
+                </a>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">WhatsApp Consultation</h3>
-              <p className="text-slate-600 text-sm mb-6">Fastest way to reach our support team.</p>
-              <a href="https://wa.me/919847148622" target="_blank" className="inline-flex items-center justify-center w-full py-4 bg-[#25D366] text-white rounded-xl font-bold hover:bg-[#20bd5a] transition-colors">
-                Chat on WhatsApp
-              </a>
-            </div>
+            </motion.div>
 
-            <div className="glass-card p-8 rounded-3xl space-y-8">
-              <div className="flex gap-4">
-                <div className="w-10 h-10 shrink-0 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
-                  <Phone className="w-5 h-5" />
+            {/* Contact Details */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="rounded-[2.5rem] bg-white border border-slate-200/80 p-10 space-y-10"
+            >
+              {[
+                { icon: Phone, label: "Call Us 24/7", value: "+91 984 714 8622", href: "tel:+919847148622" },
+                { icon: Mail, label: "Email Support", value: "info@gsttalksindia.com", href: "mailto:info@gsttalksindia.com" },
+                { icon: MapPin, label: "Head Office", value: "H&S Management Consultants (P) Ltd, VRM Road, Ravipuram", href: null },
+                { icon: Clock, label: "Business Hours", value: "Mon - Sat: 9:00 AM - 6:00 PM", href: null },
+              ].map((item, i) => (
+                <div key={i} className="flex gap-5">
+                  <div className="w-12 h-12 shrink-0 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-600">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-1">{item.label}</h4>
+                    {item.href ? (
+                      <a href={item.href} className="text-lg font-bold text-slate-900 hover:text-amber-600 transition-colors">{item.value}</a>
+                    ) : (
+                      <p className="text-slate-700 font-bold leading-relaxed">{item.value}</p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 mb-1">Call Us 24/7</h4>
-                  <a href="tel:+919847148622" className="text-slate-600 hover:text-brand-blue transition-colors">+91 984 714 8622</a>
-                </div>
-              </div>
-              
-              <div className="flex gap-4">
-                <div className="w-10 h-10 shrink-0 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 mb-1">Email Support</h4>
-                  <a href="mailto:info@gsttalksindia.com" className="text-slate-600 hover:text-brand-blue transition-colors">info@gsttalksindia.com</a>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <div className="w-10 h-10 shrink-0 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 mb-1">Head Office</h4>
-                  <p className="text-slate-600 text-sm leading-relaxed">H&S Management Consultants (P) Ltd, VRM Road, Ravipuram</p>
-                </div>
-              </div>
-
-               <div className="flex gap-4">
-                <div className="w-10 h-10 shrink-0 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900 mb-1">Business Hours</h4>
-                  <p className="text-slate-600 text-sm">Mon - Sat: 9:00 AM - 6:00 PM</p>
-                </div>
-              </div>
-            </div>
+              ))}
+            </motion.div>
           </div>
 
-          {/* Premium Form */}
-          <div className="lg:col-span-3 glass-card p-8 md:p-12 rounded-3xl shadow-2xl shadow-brand-blue/5">
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Request an Expert Callback</h2>
-            <p className="text-slate-500 text-sm mb-8">Fill out the details below and a senior consultant will reach out shortly.</p>
+          {/* Premium Lead Capture Form */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+            className="lg:col-span-3 rounded-[3rem] bg-white border border-slate-200/80 p-10 md:p-14 relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-amber-50 to-transparent rounded-bl-full opacity-60"></div>
+            
+            <div className="relative z-10">
+              <h2 className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">
+                Request an <span className="font-display italic">Expert</span> Callback
+              </h2>
+              <p className="text-slate-500 mb-10">Fill out the details below and a senior consultant will reach out shortly.</p>
 
-            {formStatus === "success" ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-green-50 border border-green-200 p-8 rounded-2xl text-center"
-              >
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Request Received Successfully</h3>
-                <p className="text-slate-600 mb-6">Our experts are reviewing your details and will contact you within 2 hours.</p>
-                <button 
-                  onClick={() => setFormStatus("idle")}
-                  className="px-6 py-2 bg-white text-slate-700 font-medium rounded-full shadow-sm border border-slate-200"
+              {formStatus === "success" ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-slate-50 border border-slate-100 p-12 rounded-[2rem] text-center"
                 >
-                  Submit Another Request
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Full Name *</label>
-                    <input required type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all" placeholder="John Doe" />
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-500 mx-auto mb-6">
+                    <CheckCircle2 className="w-10 h-10" />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Phone Number *</label>
-                    <input required type="tel" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all" placeholder="+91 XXXXX XXXXX" />
+                  <h3 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Request Received!</h3>
+                  <p className="text-slate-500 mb-10 text-lg">Our experts will contact you within 30 minutes.</p>
+                  <button 
+                    onClick={() => setFormStatus("idle")}
+                    className="px-10 py-4 bg-slate-900 text-white font-bold rounded-full uppercase tracking-[0.15em] text-xs hover:bg-slate-800 transition-all"
+                  >
+                    Submit Another Request
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-2 block">Full Name *</label>
+                      <input required type="text" className="w-full py-4 bg-transparent border-b-2 border-slate-200 focus:border-slate-900 outline-none transition-colors text-lg font-medium text-slate-900 placeholder-slate-300" placeholder="John Doe" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-2 block">Phone Number *</label>
+                      <input required type="tel" className="w-full py-4 bg-transparent border-b-2 border-slate-200 focus:border-slate-900 outline-none transition-colors text-lg font-medium text-slate-900 placeholder-slate-300" placeholder="+91 XXXXX XXXXX" />
+                    </div>
                   </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Email Address *</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all" placeholder="john@company.com" />
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-2 block">Email Address *</label>
+                      <input required type="email" className="w-full py-4 bg-transparent border-b-2 border-slate-200 focus:border-slate-900 outline-none transition-colors text-lg font-medium text-slate-900 placeholder-slate-300" placeholder="john@company.com" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-2 block">Service Required *</label>
+                      <select className="w-full py-4 bg-transparent border-b-2 border-slate-200 focus:border-slate-900 outline-none transition-colors text-lg font-medium text-slate-900 appearance-none">
+                        <option>GST Registration & Filing</option>
+                        <option>Income Tax & Audit</option>
+                        <option>Business Setup & Registration</option>
+                        <option>Other Consultation</option>
+                      </select>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700">Service Required *</label>
-                    <select className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all text-slate-700 appearance-none">
-                      <option>GST Registration & Filing</option>
-                      <option>Income Tax & Audit</option>
-                      <option>Business Setup & Registration</option>
-                      <option>Other Consultation</option>
-                    </select>
+
+                  <div>
+                    <label className="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mb-2 block">Brief Description</label>
+                    <textarea rows={2} className="w-full py-4 bg-transparent border-b-2 border-slate-200 focus:border-slate-900 outline-none transition-colors text-lg font-medium text-slate-900 resize-none placeholder-slate-300" placeholder="How can we help?"></textarea>
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700">Brief Description</label>
-                  <textarea rows={4} className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white/50 focus:bg-white focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue outline-none transition-all resize-none" placeholder="How can we help your business today?"></textarea>
-                </div>
-
-                <button 
-                  disabled={formStatus === "submitting"}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-blue text-white rounded-xl font-bold hover:bg-brand-blue/90 transition-all disabled:opacity-70"
-                >
-                  {formStatus === "submitting" ? (
-                    <span className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
-                  ) : (
-                    <>
-                      Submit Request
-                      <Send className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-                <p className="text-xs text-center text-slate-500">Your data is completely secure and will not be shared.</p>
-              </form>
-            )}
-          </div>
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">100% Secure & Confidential</p>
+                    <button 
+                      disabled={formStatus === "submitting"}
+                      className="flex items-center justify-center gap-3 px-12 py-5 bg-slate-900 text-white rounded-full font-bold hover:bg-slate-800 transition-all disabled:opacity-70 uppercase tracking-[0.15em] text-xs w-full sm:w-auto"
+                    >
+                      {formStatus === "submitting" ? (
+                        <span className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                      ) : (
+                        <>
+                          Submit Request
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </motion.div>
         </div>
-
       </div>
     </div>
   );
