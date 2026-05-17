@@ -8,22 +8,12 @@ export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Wait for the document to fully load, or fallback to a timeout
-    const handleLoad = () => {
-      setTimeout(() => setIsLoading(false), 800); // 800ms minimum display time
-    };
+    // Show preloader for exactly 2 seconds
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
 
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      // Fallback timeout in case 'load' event doesn't fire as expected
-      const timeout = setTimeout(handleLoad, 3000);
-      return () => {
-        window.removeEventListener("load", handleLoad);
-        clearTimeout(timeout);
-      };
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   return (
