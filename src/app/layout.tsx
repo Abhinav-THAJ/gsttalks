@@ -5,6 +5,7 @@ import SmoothScrolling from "@/components/SmoothScrolling";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LeadCapture from "@/components/LeadCapture";
+import Preloader from "@/components/Preloader";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans min-h-screen flex flex-col relative`}>
+        <Preloader />
         <SmoothScrolling>
           <Navbar />
           <main className="flex-1">
@@ -33,4 +35,3 @@ export default function RootLayout({
     </html>
   );
 }
-
